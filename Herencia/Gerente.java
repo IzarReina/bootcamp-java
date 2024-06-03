@@ -44,7 +44,7 @@ class Empleados{
     
         public void calcularGanancias(){
 
-            System.out.println("El empleado: "+name+ "gana "+nomina+" + bonificaciones");
+            System.out.println("El empleado: "+name+ " gana "+nomina+" + bonificaciones");
         }
     }      
 
@@ -90,15 +90,27 @@ class Empleados{
             empleados.add(empleado);
         }
         public void mostrarEmpleados(){
+            
             for(Empleados empleado:empleados){
                 empleado.describir();
                 empleado.calcularGanancias();
+            }
+        }
+        public void buscarEmpleado(String nombreEmpleado){
+            for(Empleados empleado:empleados){
+                if(empleado.name.equalsIgnoreCase(nombreEmpleado)){
+                    empleado.describir();
+                    empleado.calcularGanancias();
+                    return;
+                }
             }
         }
     }
     class Main {
         public static void main(String[] args) {
             Scanner scanner= new Scanner(System.in);
+            String nombreEmpleado=scanner.next();
+           
             Empresa empresa = new Empresa();
 
             Gerente gerente1 = new Gerente(1, "Juan", "juan@example.com",0);
@@ -109,6 +121,6 @@ class Empleados{
             empresa.agregarEmpleado(ingeniero1);
             empresa.agregarEmpleado(administrativo1);
 
-            empresa.mostrarEmpleados();
+            empresa.buscarEmpleado(nombreEmpleado);
         }
     }
