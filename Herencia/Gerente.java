@@ -8,108 +8,107 @@ class Empleados{
     public String email;
     public String puesto;
 
+    public int nomina;
+    public int precioHoras;
     public int horas;
     
-    public Empleados(int id,String name,String email,String puesto){
+    public Empleados(int id,String name,String email,String puesto,int nomina, int precioHoras,int horas){
         this.id=id;
         this.name=name;
         this.email=email;
         this.puesto=puesto;
+        this.nomina=nomina;
+        this.precioHoras=precioHoras;
+        this.horas=horas;
     }
     public void describir(){
         System.out.println("Empleado: "+id+" Nombre: "+name+" Puesto: "+puesto+" Email: "+email);
 
     }
     public void calcularGanancias(){
-        System.out.println("El empleado: "+name+" gana x");
+        System.out.println("Nomina "+nomina+(precioHoras*horas));
     }
 }
+ 
+    public class Gerente extends  Empleados{
 
-public class Gerente extends  Empleados{
-    public int nominaGerente=2137;
+        public Gerente(int id,String name, String email,int nomina){
+            super(id,name,email,"Gerente",2550,0,0);
+            
+        }
 
-    public Gerente(int id,String name, String email){
-        super(id,name,email,"Gerente");
-    }
-    @Override
-    public void describir(){
-        System.out.println("Empleado: "+id+" Nombre: "+name+" Puesto: "+puesto+" Email: "+email);
-    }
-    @Override
-    public void calcularGanancias(){
+        @Override
+        public void describir(){
+            System.out.println("Empleado: "+id+" Nombre: "+name+" Puesto: "+puesto+" Email: "+email);
+        }
+    
+        public void calcularGanancias(){
 
-        System.out.println("El empleado: "+name+ "gana "+nominaGerente+" bonificaciones");
-    }
-}
+            System.out.println("El empleado: "+name+ "gana "+nomina+" + bonificaciones");
+        }
+    }      
 
- class Ingenieros extends Empleados{
-    Scanner scanner=new Scanner(System.in);
+    class Ingenieros extends Empleados{
 
-    public Ingenieros(int id, String name, String email){
-        super(id,name,email,"Ingeniero");
-    }
-    @Override
-    public void describir(){
-        System.out.println("Empleado: "+id+" Nombre: "+name+" Puesto: "+puesto+" Email: "+email);
-    }
-    @Override
-    public void calcularGanancias(){
-        System.out.println("Escriba el precio la hora del ingeniero");
-        int nominaHorasIngenieros=scanner.nextInt();
-        System.out.println("Escriba las horas trabajadas");
-        int horas=scanner.nextInt();
-        int nominaFinal=nominaHorasIngenieros*horas;
-        System.out.println("El empleado: "+name+ " gana "+nominaFinal);
-    }
-}
+        public Ingenieros(int id, String name, String email, int nomina, int precioHoras, int horas){
+            super(id,name,email,"Ingeniero",0,22,120);
+        }
+        @Override
+        public void describir(){
+            System.out.println("Empleado: "+id+" Nombre: "+name+" Puesto: "+puesto+" Email: "+email);
+        }
 
- class Administrativo extends Empleados{
-    /*Scanner scanner=new Scanner(System.in);
-    int nominaHorasAdministrativo=scanner.nextInt();
-    int horas=scanner.nextInt();
-    int nominaFinal=nominaHorasAdministrativo*horas;*/
-
-    public Administrativo (int id, String name,String email){
-        super(id,name,email,"Administrativo");
-    }
-    @Override
-    public void describir(){
-        System.out.println("Empleado: "+id+" Nombre: "+name+" Puesto: "+puesto+" Email: "+email);
-    }
-    @Override
-    public void calcularGanancias(){
-        System.out.println("El empleado: "+name+ " gana ");
-    }
-}
-
- class Empresa{
-    List<Empleados>empleados;
-
-    public Empresa(){
-        this.empleados=new ArrayList<>();
-    }
-    public void agregarEmpleado(Empleados empleado){
-        empleados.add(empleado);
-    }
-    public void mostrarEmpleados(){
-        for(Empleados empleado:empleados){
-            empleado.describir();
+        public void calcularGanancias(){
+             nomina=precioHoras*horas;
+            System.out.println("El empleado: "+name+ " gana "+nomina);
         }
     }
-}
- class Main {
-    public static void main(String[] args) {
 
-        Empresa empresa = new Empresa();
+    class Administrativo extends Empleados{
 
-        Gerente gerente1 = new Gerente(1, "Juan", "juan@example.com");
-        Ingenieros ingeniero1 = new Ingenieros(2, "Pedro", "pedro@example.com");
-        Administrativo administrativo1 = new Administrativo(3, "Maria", "maria@example.com");
-
-        empresa.agregarEmpleado(gerente1);
-        empresa.agregarEmpleado(ingeniero1);
-        empresa.agregarEmpleado(administrativo1);
-
-        empresa.mostrarEmpleados();
+        public Administrativo (int id, String name,String email,int nomina, int precioHoras,int horas){
+            super(id,name,email,"Administrativo",0,16,120);
+        }
+        @Override
+        public void describir(){
+            System.out.println("Empleado: "+id+" Nombre: "+name+" Puesto: "+puesto+" Email: "+email);
+        }
+    
+        public void calcularGanancias(){
+            nomina=precioHoras*horas;
+            System.out.println("El empleado: "+name+ " gana "+nomina);
+        }
     }
-}
+
+    class Empresa{
+        List<Empleados>empleados;
+
+        public Empresa(){
+            this.empleados=new ArrayList<>();
+        }
+        public void agregarEmpleado(Empleados empleado){
+            empleados.add(empleado);
+        }
+        public void mostrarEmpleados(){
+            for(Empleados empleado:empleados){
+                empleado.describir();
+                empleado.calcularGanancias();
+            }
+        }
+    }
+    class Main {
+        public static void main(String[] args) {
+            Scanner scanner= new Scanner(System.in);
+            Empresa empresa = new Empresa();
+
+            Gerente gerente1 = new Gerente(1, "Juan", "juan@example.com",0);
+            Ingenieros ingeniero1 = new Ingenieros(2, "Pedro", "pedro@example.com",0,0,0);
+            Administrativo administrativo1 = new Administrativo(3, "Maria", "maria@example.com",0,0,0);
+
+            empresa.agregarEmpleado(gerente1);
+            empresa.agregarEmpleado(ingeniero1);
+            empresa.agregarEmpleado(administrativo1);
+
+            empresa.mostrarEmpleados();
+        }
+    }
