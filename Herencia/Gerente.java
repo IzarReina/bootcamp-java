@@ -17,6 +17,7 @@ class Empleados{
         this.name=name;
         this.email=email;
         this.puesto=puesto;
+
         this.nomina=nomina;
         this.precioHoras=precioHoras;
         this.horas=horas;
@@ -71,6 +72,7 @@ class Empleados{
         }
         @Override
         public void describir(){
+            
             System.out.println("Empleado: "+id+" Nombre: "+name+" Puesto: "+puesto+" Email: "+email);
         }
     
@@ -110,6 +112,15 @@ class Empleados{
         public static void main(String[] args) {
             Scanner scanner= new Scanner(System.in);
             String nombreEmpleado=scanner.next();
+            if(nombreEmpleado.equalsIgnoreCase("Gerente")){
+                System.out.println("mostrar info gerentes");
+            }
+            else if(nombreEmpleado.equalsIgnoreCase("Ingeniero")){
+                System.out.println("mostrar info ingenieros");
+            }
+            else if(nombreEmpleado.equalsIgnoreCase("Administrador")){
+                System.out.println("mostrar info administradores");
+            }
            
             Empresa empresa = new Empresa();
 
